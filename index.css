@@ -1,0 +1,303 @@
+/* * {
+    box-sizing: border-box;
+} */
+html, button {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: rgb(32, 32, 32);
+    color: white;
+    margin: 0;
+
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 75px;
+
+    perspective: 10em;
+    perspective-origin: 50% 50%;
+}
+.flex { display: flex; }
+
+
+/* 3D cube CSS by Amit Sheen */
+.scene {
+    position: relative;
+    transform-style: preserve-3d;
+}
+.scene * {
+    position: relative;
+    transform-style: preserve-3d;
+    transform-origin: inherit;
+}
+.side {
+    /* background-color: black; */
+    /* box-shadow: 0 0 10px black inset; */
+    transition: transform 0.5s ease;
+    backface-visibility: hidden;
+    /* filter: drop-shadow(0 0 0 black); */
+}
+.l, .r, .f, .b {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.f {transform: translateZ(1em);}
+.r {transform: rotateY(90deg) translateZ(1em);}
+.b  {transform: rotateY(180deg) translateZ(1em);}
+.l  {transform: rotateY(270deg) translateZ(1em);}
+
+.u {
+    width: 2em;
+    height: 2em;
+    box-shadow: 0 0 0.5em #000a inset;
+
+    position: absolute;
+    transform: translateY(-50%) rotateX(90deg);
+}
+.d {
+    width: 2em;
+    height: 2em;
+
+    position: absolute;
+    bottom: 0;
+    transform: translateY(50%) rotateX(-90deg);
+}
+
+
+/* Render semi-flat */
+.semi_flat .l,
+.semi_flat .r,
+.semi_flat .f,
+.semi_flat .b {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--boxColor);
+    box-shadow: 0 0 0.5em #000a inset;
+}
+.semi_flat .f  { transform: translateX(0em); }
+.semi_flat .r  { transform-origin: right;   transform: rotateY(15deg) translateX(2em); }
+.semi_flat .b  { transform-origin: left;  transform: rotateY(-30deg) translateX(-3.94em) translateZ(0.5em);}
+.semi_flat .l  { transform-origin: left;  transform: rotateY(-15deg) translateX(-2em); }
+.semi_flat .u {
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    background: var(--boxColor);
+    box-shadow: 0 0 0.5em #000a inset;
+
+    transform-origin: bottom;
+    transform: translateY(-2em) rotateX(15deg);
+}
+.semi_flat .d {
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    background: #0007;
+    bottom: 0;
+
+    transform-origin: top;
+    transform: translateY(2em) rotateX(-15deg);
+}
+
+
+
+
+/* Flat */
+.render_flat {
+    overflow: unset;
+    display: unset;
+    justify-content: unset;
+    align-items: unset;
+
+    perspective: unset;
+    perspective-origin: unset;
+}
+.render_flat #cube {
+    transform: translate(5em, 3em) !important;
+}
+.render_flat .l,
+.render_flat .r,
+.render_flat .f,
+.render_flat .b {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--boxColor);
+    box-shadow: 0 0 0.5em #000a inset;
+}
+.render_flat .f {transform: translateX(0em);}
+.render_flat .r {transform: translateX(2em);}
+.render_flat .b  {transform: translateX(-4em);}
+.render_flat .l  {transform: translateX(-2em);}
+.render_flat .u {
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    background: var(--boxColor);
+    box-shadow: 0 0 0.5em #000a inset;
+
+    transform: translateY(-2em);
+}
+.render_flat  .d {
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    background: #0007;
+    bottom: 0;
+    
+    transform: translateY(2em);
+}
+
+
+
+
+
+
+
+#cube {
+    /* background-color: gray; */
+    /* border: 2px solid purple; */
+    /* width: fit-content;
+    height: fit-content; */
+
+    width: 2em;
+    height: 2em;
+    transform-style: preserve-3d;
+    position: absolute;
+    bottom: -1em;
+    left: -1em;
+
+    /* transform: rotateY(40deg); */
+    transition: transform 0.032s linear;
+}
+.side, .row {
+    width: fit-content;
+    height: fit-content;
+}
+
+.square {
+    box-sizing: border-box;
+    width: 50px;
+    height: 50px;
+    /* width: 36px; */
+    /* height: 36px; */
+    border: 2px solid black;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8) inset;
+    /* transition: box-shadow 0.1s ease; */
+}
+.square:hover {
+    box-shadow: 0px 0px 16px rgba(0, 0, 0, 1) inset;
+    filter: brightness(90%);
+}
+.row { display: flex; }
+
+.white   { background-color: rgb(240, 240, 240); }
+.yellow  { background-color: rgb(236, 215,  26); }
+.red     { background-color: rgb(201,  49,  49); }
+.orange  { background-color: rgb(228, 148,  27); }
+.green   { background-color: rgb(  0, 153,   0); }
+.blue    { background-color: rgb(  31, 31, 184); }
+
+
+/* Animation origins */
+.topleft  { transform-origin: 4.6rem 4.7rem -4.7rem; }
+.topmid   { transform-origin: 1.5rem 4.7rem -4.7rem; }
+.topright { transform-origin: -1.5rem 4.7rem -4.7rem; }
+
+/* Rotation animations */
+.rotatey { animation: rotate_y 3s ease forwards; }
+@keyframes rotate_y {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(90deg); }
+}
+.rotatex { animation: rotate_x 3s ease forwards; }
+@keyframes rotate_x {
+    from { transform: rotateX(0deg); }
+    to { transform: rotateX(90deg); }
+}
+.rotatez { animation: rotate_z 3s ease forwards; }
+@keyframes rotate_z {
+    from { transform: rotateZ(0deg); }
+    to { transform: rotateZ(90deg); }
+}
+
+
+
+
+
+
+
+/* Controls */
+.panel, #panel_toggle {
+    position: absolute;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-bottom: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.panel {
+    background-color: rgba(255, 255, 255, 0.05);
+
+    /* height: 100px; */
+    width: fit-content;
+    padding: 12px;
+    font-size: 11pt;
+
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: transform 0.5s ease;
+}
+.panel.hide {
+    transform: translateX(-50%) translateY(100%);
+}
+#panel_toggle {
+    box-sizing: border-box;
+    background-color: #2b2b2b;
+
+    text-align: center;
+    padding-top: 2px;
+
+    top: -27px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 48px;
+    height: 26px;
+
+    cursor: pointer;
+}
+
+
+button {
+    font-size: 16pt;
+    padding: 8px 12px;
+    margin: 2px;
+    width: 37px;
+    text-align: left;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+button:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    border: 2px solid white;
+}
+button:active {
+    background-color: rgba(100, 100, 100, 0.25);
+}
+.swatch {
+    filter: brightness(80%);
+    cursor: pointer;
+}
+.swatch.sel {
+    filter: brightness(100%);
+    outline: 2px solid white;
+    z-index: 1;
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div id="scene" class="scene">
+        <div id="cube"></div>
+    </div>
+
+    <div class="panel" id="panel">
+        <div class="flex">
+            <div id="panel_toggle" onclick="togglePanel()">
+                ⮟
+            </div>
+            <div style="margin-right: 8px;">
+                <div id="controls"></div>
+                    <div class="flex"><button onclick="reset()" style="width: 100%; text-align: center;">Reset</button><button onclick="shuffle()" style="width: 100%; text-align: center;">Shuffle</button></div>
+                <button onclick="renderMode()" style="width: 100%; text-align: center;">Render mode</button>
+            </div>
+            <!-- Colors -->
+            <div>
+                <div class="flex">
+                    <div class="square swatch white" onclick="setPaintColor('0')"></div>
+                    <div class="square swatch red" onclick="setPaintColor('2')"></div>
+                </div>
+                <div class="flex">
+                    <div class="square swatch orange" onclick="setPaintColor('3')"></div>
+                    <div class="square swatch yellow" onclick="setPaintColor('1')"></div>
+                </div>
+                <div class="flex">
+                    <div class="square swatch green" onclick="setPaintColor('4')"></div>
+                    <div class="square swatch blue" onclick="setPaintColor('5')"></div>
+                </div>
+                <div class="flex">
+                    <button onclick="undo()" style="width: 100%; text-align: center;">Undo</button>
+                </div>
+            </div>
+        </div>
+
+        <p style="margin: 0; padding-top: 4px; text-align: center; color: rgb(197, 197, 197);">WASD to rotate camera</p>
+    </div>
+
+
+    <!-- JS -->
+    <script src="index.js"></script>
+</body>
+</html>
