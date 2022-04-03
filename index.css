@@ -19,7 +19,10 @@ body {
 
     perspective: 10em;
     perspective-origin: 50% 50%;
+
+    touch-action: manipulation;
 }
+/* .panning { cursor: grabbing; } */
 .flex { display: flex; }
 
 
@@ -69,6 +72,7 @@ body {
 
 
 /* Render semi-flat */
+.semi_flat .side { backface-visibility: unset;}
 .semi_flat .l,
 .semi_flat .r,
 .semi_flat .f,
@@ -205,26 +209,25 @@ body {
 
 
 /* Animation origins */
-.topleft  { transform-origin: 4.6rem 4.7rem -4.7rem; }
-.topmid   { transform-origin: 1.5rem 4.7rem -4.7rem; }
-.topright { transform-origin: -1.5rem 4.7rem -4.7rem; }
+.topleft  { transform-origin: 4.5rem 4.5rem -4.5rem; }
+.topmid   { transform-origin: 1.5rem 4.5rem -4.5rem; }
+.topright { transform-origin: -1.5rem 4.5rem -4.5rem; }
 
 /* Rotation animations */
-.rotatey { animation: rotate_y 3s ease forwards; }
-@keyframes rotate_y {
-    from { transform: rotateY(0deg); }
-    to { transform: rotateY(90deg); }
-}
-.rotatex { animation: rotate_x 3s ease forwards; }
-@keyframes rotate_x {
-    from { transform: rotateX(0deg); }
-    to { transform: rotateX(90deg); }
-}
-.rotatez { animation: rotate_z 3s ease forwards; }
-@keyframes rotate_z {
-    from { transform: rotateZ(0deg); }
-    to { transform: rotateZ(90deg); }
-}
+.rotatey   { animation: rotate_y 0.5s ease forwards; }
+.r_rotatey { animation: r_rotate_y 0.5s ease forwards; }
+@keyframes rotate_y     { to { transform: rotateY(90deg); } }
+@keyframes r_rotate_y   { to { transform: rotateY(-90deg); } }
+
+.rotatex   { animation: rotate_x 0.5s ease forwards; }
+.r_rotatex { animation: r_rotate_x 0.5s ease forwards; }
+@keyframes rotate_x { to { transform: rotateX(90deg); } }
+@keyframes r_rotate_x { to { transform: rotateX(-90deg); } }
+
+.rotatez   { animation: rotate_z 0.5s ease forwards; }
+.r_rotatez   { animation: r_rotate_z 0.5s ease forwards; }
+@keyframes rotate_z { to { transform: rotateZ(90deg); } }
+@keyframes r_rotate_z { to { transform: rotateZ(-90deg); } }
 
 
 
@@ -239,6 +242,7 @@ body {
     border-bottom: none;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    user-select: none;
 }
 .panel {
     background-color: rgba(255, 255, 255, 0.05);
@@ -252,6 +256,8 @@ body {
     left: 50%;
     transform: translateX(-50%);
     transition: transform 0.5s ease;
+
+    padding-bottom: env(safe-area-inset-bottom);
 }
 .panel.hide {
     transform: translateX(-50%) translateY(100%);
@@ -278,8 +284,8 @@ button {
     font-size: 16pt;
     padding: 8px 12px;
     margin: 2px;
-    width: 37px;
-    text-align: left;
+
+
     background-color: rgba(255, 255, 255, 0.15);
     color: white;
     border: 2px solid transparent;
@@ -291,6 +297,12 @@ button:hover {
 }
 button:active {
     background-color: rgba(100, 100, 100, 0.25);
+}
+.move_button {
+    text-align: left;
+    width: 38px;
+    text-transform: capitalize;
+    padding-left: 8px;
 }
 .swatch {
     filter: brightness(80%);

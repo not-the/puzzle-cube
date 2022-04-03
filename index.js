@@ -188,6 +188,11 @@ var cube3x3map
 var cube = false;
 const colors = ["white", "yellow", "red", "orange", "green", "blue"];
 var paintColor = -1;
+const posclasses = [
+    ['topleft',    'topmid',    'topright'   ],
+    ['midleft',    'mid',       'midright'   ],
+    ['bottomleft', 'bottommid', 'bottomright'],
+];
 
 // Loop sides
 
@@ -205,8 +210,9 @@ function populateCube(template = cube3x3) {
             html += `<div class="row">`;
             for(si = 0; si < side.length; si++) {
                 let square = row[si];
+                let posclass = posclasses[ri][si];
                 // html += `<div class="square ${colors[square]}" onclick="console.log('${`${key} (${ri}, ${si})`}')"></div>`;
-                html += `<div class="square ${colors[square]}" onclick="paint('${key}', ${ri}, ${si})"></div>`;
+                html += `<div id="${key}_${ri}${si}" class="square ${posclass} ${colors[square]}" onclick="paint('${key}', ${ri}, ${si})"></div>`;
             }
             html += `</div>`;
         }
@@ -507,11 +513,11 @@ function reset() {
 function populateButtons() {
     var html = '';
     for(side in cube) {
-        html += `<button onclick="move('${side}')">${side}</button>`;
+        html += `<button class="move_button" onclick="move('${side}')">${side}</button>`;
     }
     html += '<br/>';
     for(side in cube) {
-        html += `<button onclick="move('${side}', true)">${side}'</button>`;
+        html += `<button class="move_button" onclick="move('${side}', true)">${side}'</button>`;
     }
     elControls.innerHTML = html;
 }
@@ -644,26 +650,26 @@ function togglePanel() {
 
 
 
-// var mousedownInterval;
-// var originX = rotation.x;
-// var originY = rotation.y;
-// var omX;
-// var omY;
-// document.addEventListener('mousedown', () => {
-//     originX = rotation.x;
-//     originY = rotation.y;
-//     omX = mouseX;
-//     omY = mouseY;
+var mousedownInterval;
+var originX;
+var originY;
+var omX;
+var omY;
+document.addEventListener('mousedown', () => {
+    originX = parseInt(rotation.x);
+    originY = parseInt(rotation.y);
+    omX = mouseX;
+    omY = mouseY;
+    // document.querySelector('body').classList.add('panning');
 
-//     clearInterval(mousedownInterval);
-//     mousedownInterval = setInterval(() => {
-//         // console.log('a');
-//         rotation.x = (originY + omY) * -0.5;
-//         rotation.y = (originX + omX) * 0.5;
-//         updateCubeRot();
-//     }, 1000 / 30);
-// });
-// document.addEventListener('mouseup', () => { clearInterval(mousedownInterval); });
+    clearInterval(mousedownInterval);
+    mousedownInterval = setInterval(() => {
+        rotation.x = parseInt(((parseInt(originX)) + (mouseY - omY) * -0.3));
+        rotation.y = parseInt(((parseInt(originY)) + (mouseX - omX) *  0.5));
+        updateCubeRot();
+    }, 1000 / 30);
+});
+document.addEventListener('mouseup', () => { clearInterval(mousedownInterval); });
 // document.addEventListener('mouseout', () => { clearInterval(mousedownInterval); });
 
 

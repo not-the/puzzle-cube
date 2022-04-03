@@ -1,0 +1,6 @@
+v2
+- Mouse panning
+- Backfaces are now visible in semiflat mode
+- Rotation buttons are now capitalized
+
+v1
