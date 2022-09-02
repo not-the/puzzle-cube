@@ -195,7 +195,6 @@ const posclasses = [
 ];
 
 // Loop sides
-
 function populateCube(template = cube3x3) {
     cube = cube == false ? JSON.parse(JSON.stringify(template)) : cube;
     var html = '';
@@ -216,9 +215,8 @@ function populateCube(template = cube3x3) {
             }
             html += `</div>`;
         }
-    
+
         html += `</div>`;
-    
         elCube.innerHTML = html;
     }
 
@@ -232,10 +230,10 @@ var mhistory = [];
 var at = -1;
 function move(sidekey, counter = false, nohistory = false) {
     let side = cube[sidekey];
-    // console.log(side);
-    console.log(side, counter);
+    if(side == undefined) return 'Invalid move';
+    console.log(sidekey, counter);
 
-    if(counter == false) {
+    if(!counter) {
         cube[sidekey] = side[0].map((val, index) => side.map(row => row[index]).reverse());
         switch(sidekey) {
             case 'u':
@@ -451,30 +449,46 @@ function undo(redo = false) {
         let d = lastMove[1] == "'" ? false : true;
         at--;
         move(s, d, true);
-    } else {
-        console.warn('No more undos available');
     }
+    else console.warn('No more undos available');
 }
 
-
+var shuffling = false;
+var shuffleInterval;
+var shuffleTimer;
 function shuffle(movecount = false) {
-    let moves = movecount == false ? Math.floor(Math.random() * 10) + 40 : movecount - 1;
-    for(i = 0; i <= moves; i++) {
-        let sides = Object.keys(cube);
-        let s = sides[Math.floor(Math.random() * sides.length)];
-        // let d = Math.floor(Math.random() * 2) == 0 ? false : true;
-        setTimeout(() => {
+    let moves = movecount ? movecount - 1 : Math.floor(Math.random() * 10) + 40;
+
+    dom("button_shuffle").innerText = "Shuffling...";
+    let length = 0;
+
+    // Shuffle
+    if(!shuffling) {
+        shuffling = true;
+        length = 200;
+        shuffleInterval = setInterval(() => {
+            let sides = Object.keys(cube);
+            let s = sides[Math.floor(Math.random() * sides.length)];
             move(s);
-            console.log(s);
-        }, 200 * i);
+        }, length);
     }
+
+    // Stop
+    clearTimeout(shuffleTimer);
+    shuffleTimer = setTimeout(() => {
+        shuffling = false;
+        dom("button_shuffle").innerText = "Shuffle";
+        clearInterval(shuffleInterval);
+    }, moves * length);
 }
 
 function setPaintColor(c) {
     document.querySelectorAll('.swatch').forEach(e => {
         e.classList.remove('sel');
     });
-    this.event.srcElement.classList.add('sel');
+    let target = this.event.srcElement;
+    if(paintColor == c) return target.classList.remove('sel');
+    target.classList.add('sel');
     paintColor = c;
 }
 
