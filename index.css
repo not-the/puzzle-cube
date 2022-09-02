@@ -50,8 +50,8 @@ body {
 }
 .f {transform: translateZ(1em);}
 .r {transform: rotateY(90deg) translateZ(1em);}
-.b  {transform: rotateY(180deg) translateZ(1em);}
-.l  {transform: rotateY(270deg) translateZ(1em);}
+.b {transform: rotateY(180deg) translateZ(1em);}
+.l {transform: rotateY(270deg) translateZ(1em);}
 
 .u {
     width: 2em;
@@ -173,6 +173,7 @@ body {
     height: 2em;
     transform-style: preserve-3d;
     position: absolute;
+    z-index: 1;
     bottom: -1em;
     left: -1em;
 
@@ -198,14 +199,18 @@ body {
     box-shadow: 0px 0px 16px rgba(0, 0, 0, 1) inset;
     filter: brightness(90%);
 }
+.panel .square {
+    width: 42px;
+    height: 42px;
+}
 .row { display: flex; }
 
-.white   { background-color: rgb(240, 240, 240); }
-.yellow  { background-color: rgb(236, 215,  26); }
-.red     { background-color: rgb(201,  49,  49); }
-.orange  { background-color: rgb(228, 148,  27); }
-.green   { background-color: rgb(  0, 153,   0); }
-.blue    { background-color: rgb(  31, 31, 184); }
+.white  { background-color: rgb(240, 240, 240); }
+.yellow { background-color: rgb(236, 215,  26); }
+.red    { background-color: rgb(201,  49,  49); }
+.orange { background-color: rgb(228, 148,  27); }
+.green  { background-color: rgb(  0, 153,   0); }
+.blue   { background-color: rgb(  31, 31, 184); }
 
 
 /* Animation origins */
@@ -221,17 +226,13 @@ body {
 
 .rotatex   { animation: rotate_x 0.5s ease forwards; }
 .r_rotatex { animation: r_rotate_x 0.5s ease forwards; }
-@keyframes rotate_x { to { transform: rotateX(90deg); } }
-@keyframes r_rotate_x { to { transform: rotateX(-90deg); } }
+@keyframes rotate_x     { to { transform: rotateX(90deg); } }
+@keyframes r_rotate_x   { to { transform: rotateX(-90deg); } }
 
 .rotatez   { animation: rotate_z 0.5s ease forwards; }
-.r_rotatez   { animation: r_rotate_z 0.5s ease forwards; }
-@keyframes rotate_z { to { transform: rotateZ(90deg); } }
-@keyframes r_rotate_z { to { transform: rotateZ(-90deg); } }
-
-
-
-
+.r_rotatez { animation: r_rotate_z 0.5s ease forwards; }
+@keyframes rotate_z     { to { transform: rotateZ(90deg); } }
+@keyframes r_rotate_z   { to { transform: rotateZ(-90deg); } }
 
 
 
@@ -245,19 +246,21 @@ body {
     user-select: none;
 }
 .panel {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: #2b2b2bcc;
+    backdrop-filter: blur(24px);
 
-    /* height: 100px; */
-    width: fit-content;
+    width: max-content;
+    max-width: 100%;
     padding: 12px;
-    font-size: 11pt;
+    /* padding-bottom: env(safe-area-inset-bottom); */
+    font-size: 10pt;
 
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     transition: transform 0.5s ease;
 
-    padding-bottom: env(safe-area-inset-bottom);
+    z-index: 2;
 }
 .panel.hide {
     transform: translateX(-50%) translateY(100%);
@@ -281,12 +284,12 @@ body {
 
 
 button {
-    font-size: 16pt;
-    padding: 8px 12px;
+    font-size: 13pt;
+    padding: 6px 8px;
     margin: 2px;
 
 
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: #4b4b4baa;
     color: white;
     border: 2px solid transparent;
     cursor: pointer;
@@ -299,6 +302,7 @@ button:active {
     background-color: rgba(100, 100, 100, 0.25);
 }
 .move_button {
+    font-size: 14pt;
     text-align: left;
     width: 38px;
     text-transform: capitalize;
