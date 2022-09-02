@@ -9,10 +9,12 @@
     <link rel="icon" type="image/x-icon" href="./icon.png">
 </head>
 <body>
+    <!-- Cube -->
     <div id="scene" class="scene">
         <div id="cube"></div>
     </div>
 
+    <!-- Buttons -->
     <div class="panel" id="panel">
         <div class="flex">
             <div id="panel_toggle" onclick="togglePanel()">
@@ -20,7 +22,7 @@
             </div>
             <div style="margin-right: 8px;">
                 <div id="controls"></div>
-                    <div class="flex"><button onclick="reset()" style="width: 100%; text-align: center;">Reset</button><button onclick="shuffle()" style="width: 100%; text-align: center;">Shuffle</button></div>
+                    <div class="flex"><button onclick="reset()" style="width: 100%; text-align: center;">Reset</button><button id="button_shuffle" onclick="shuffle()" style="width: 100%; text-align: center;">Shuffle</button></div>
                 <button onclick="renderMode()" style="width: 100%; text-align: center;">Render mode</button>
             </div>
             <!-- Colors -->
@@ -43,7 +45,7 @@
             </div>
         </div>
 
-        <p style="margin: 0; padding-top: 4px; text-align: center; color: rgb(197, 197, 197);">WASD to rotate camera</p>
+        <p style="margin: 0; padding-top: 4px; text-align: center; color: rgb(197, 197, 197);">Click and drag or WASD to rotate camera</p>
     </div>
 
 
