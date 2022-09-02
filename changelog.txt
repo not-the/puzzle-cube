@@ -1,3 +1,9 @@
+v3
+- Fixed the control panel scaling down incorrectly
+- You can click a color again to disable paint mode
+- Shuffle button text changes while shuffling
+- Pressing the shuffle button while shuffling will stop it
+
 v2
 - Mouse panning
 - Backfaces are now visible in semiflat mode
