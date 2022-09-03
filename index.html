@@ -9,6 +9,14 @@
     <link rel="icon" type="image/x-icon" href="./icon.png">
 </head>
 <body>
+    <header id="info" class="flex">
+        <div>
+            <h1>Rubik's Cube Simulator</h1>
+            <p>By <a href="https://github.com/not-the" target="_blank" rel="noopener noreferrer">not-the</a> | <a href="https://www.notkal.com/projects/rubiks-cube/">About</a></p>
+        </div>
+        <div class="header_hover">•</div>
+    </header>
+
     <!-- Cube -->
     <div id="scene" class="scene">
         <div id="cube"></div>
@@ -17,27 +25,26 @@
     <!-- Buttons -->
     <div class="panel" id="panel">
         <div class="flex">
-            <div id="panel_toggle" onclick="togglePanel()">
+            <div id="panel_toggle" onclick="togglePanel()" role="button" tabindex="0">
                 ⮟
             </div>
             <div style="margin-right: 8px;">
                 <div id="controls"></div>
-                    <div class="flex"><button onclick="reset()" style="width: 100%; text-align: center;">Reset</button><button id="button_shuffle" onclick="shuffle()" style="width: 100%; text-align: center;">Shuffle</button></div>
-                <button onclick="renderMode()" style="width: 100%; text-align: center;">Render mode</button>
+                    <div class="flex"><button onclick="reset()" style="width: 100%; text-align: center;">Reset</button><button id="button_shuffle" style="width: 100%; text-align: center;">Shuffle</button></div>
+                <button onclick="renderMode()" style="width: 100%; text-align: center;">Render mode: <span id="render_label" class="emphasize">Cube</span></button>
             </div>
             <!-- Colors -->
             <div>
+                <h3>Paints</h3>
                 <div class="flex">
-                    <div class="square swatch white" onclick="setPaintColor('0')"></div>
-                    <div class="square swatch red" onclick="setPaintColor('2')"></div>
+                    <div class="square swatch white" onclick="setPaintColor('0')" role="button" tabindex="0"></div>
+                    <div class="square swatch yellow" onclick="setPaintColor('1')" role="button" tabindex="0"></div>
+                    <div class="square swatch red" onclick="setPaintColor('2')" role="button" tabindex="0"></div>
                 </div>
                 <div class="flex">
-                    <div class="square swatch orange" onclick="setPaintColor('3')"></div>
-                    <div class="square swatch yellow" onclick="setPaintColor('1')"></div>
-                </div>
-                <div class="flex">
-                    <div class="square swatch green" onclick="setPaintColor('4')"></div>
-                    <div class="square swatch blue" onclick="setPaintColor('5')"></div>
+                    <div class="square swatch orange" onclick="setPaintColor('3')" role="button" tabindex="0"></div>
+                    <div class="square swatch green" onclick="setPaintColor('4')" role="button" tabindex="0"></div>
+                    <div class="square swatch blue" onclick="setPaintColor('5')" role="button" tabindex="0"></div>
                 </div>
                 <div class="flex">
                     <button onclick="undo()" style="width: 100%; text-align: center;">Undo</button>

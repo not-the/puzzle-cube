@@ -1,13 +1,14 @@
-/* * {
-    box-sizing: border-box;
-} */
+:root {
+    --font: Arial, Helvetica, sans-serif;
+    --text: rgb(222, 222, 222);
+}
 html, button {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font);
 }
 
 body {
     background-color: rgb(32, 32, 32);
-    color: white;
+    color: var(--text);
     margin: 0;
 
     min-height: 100vh;
@@ -21,15 +22,51 @@ body {
     perspective-origin: 50% 50%;
 
     touch-action: manipulation;
+    -ms-touch-action: manipulation;
 }
-/* .panning { cursor: grabbing; } */
+h3 { margin: 0; }
+.panning { cursor: grabbing; }
+.emphasize { color: white; font-weight: bold; }
 .flex { display: flex; }
 
+/* Info */
+#info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    transform: translateX(calc(-100% + 64px));
+
+    max-width: 100%;
+    padding: 12px 24px 24px 16px;
+    font-size: 12pt;
+    color: gray;
+    transition-property: color, transform;
+    transition-duration: 0.8s;
+    transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    align-items: center;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+#info:hover {
+    color: var(--text);
+    transform: none;
+    text-shadow: 2px 2px 16px black;
+}
+#info * { margin: 0; }
+.header_hover {
+    font-size: 36pt; font-weight: bolder; padding-left: 24px;
+}
+
+a { color: rgb(36, 138, 255); }
+a:hover { text-decoration: none; }
 
 /* 3D cube CSS by Amit Sheen */
 .scene {
     position: relative;
     transform-style: preserve-3d;
+    transition: transform 0.2s ease;
 }
 .scene * {
     position: relative;
@@ -37,11 +74,8 @@ body {
     transform-origin: inherit;
 }
 .side {
-    /* background-color: black; */
-    /* box-shadow: 0 0 10px black inset; */
     transition: transform 0.5s ease;
     backface-visibility: hidden;
-    /* filter: drop-shadow(0 0 0 black); */
 }
 .l, .r, .f, .b {
     position: absolute;
@@ -161,14 +195,7 @@ body {
 
 
 
-
-
 #cube {
-    /* background-color: gray; */
-    /* border: 2px solid purple; */
-    /* width: fit-content;
-    height: fit-content; */
-
     width: 2em;
     height: 2em;
     transform-style: preserve-3d;
@@ -258,11 +285,11 @@ body {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    transition: transform 0.5s ease;
+    transition: transform 0.4s ease;
 
     z-index: 2;
 }
-.panel.hide {
+body.hide .panel {
     transform: translateX(-50%) translateY(100%);
 }
 #panel_toggle {
@@ -290,11 +317,12 @@ button {
 
 
     background-color: #4b4b4baa;
-    color: white;
+    color: var(--text);
     border: 2px solid transparent;
     cursor: pointer;
 }
 button:hover {
+    color: white;
     background-color: rgba(255, 255, 255, 0.25);
     border: 2px solid white;
 }
@@ -316,4 +344,12 @@ button:active {
     filter: brightness(100%);
     outline: 2px solid white;
     z-index: 1;
+}
+
+
+/* Media queries */
+@media only screen and (max-height: 650px) {
+    body:not(body.hide):not(body.render_flat) .scene {
+        transform: translateY(-15vh);
+    }
 }

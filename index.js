@@ -5,8 +5,8 @@ const elCube = dom('cube');
 const elScene = dom('scene');
 const elControls = dom('controls');
 
-var mouseX;
-var mouseY;
+var mouseX = 0;
+var mouseY = 0;
 
 var saved = {
     "u": [
@@ -456,7 +456,7 @@ function undo(redo = false) {
 var shuffling = false;
 var shuffleInterval;
 var shuffleTimer;
-function shuffle(movecount = false) {
+function shuffle(event, movecount = false) {
     let moves = movecount ? movecount - 1 : Math.floor(Math.random() * 10) + 40;
 
     dom("button_shuffle").innerText = "Shuffling...";
@@ -465,7 +465,8 @@ function shuffle(movecount = false) {
     // Shuffle
     if(!shuffling) {
         shuffling = true;
-        length = 200;
+        length = event.shiftKey ? 50 : 200;
+        clearInterval(shuffleInterval);
         shuffleInterval = setInterval(() => {
             let sides = Object.keys(cube);
             let s = sides[Math.floor(Math.random() * sides.length)];
@@ -550,9 +551,7 @@ document.addEventListener('keydown', event => {
         keyFiring = key;
         holdStart(key);
     }
-    else if((key == 'z' || key == 'Z') && event.ctrlKey == true) {
-        undo();
-    }
+    else if((key == 'z' || key == 'Z') && event.ctrlKey == true) undo();
 });
 
 document.addEventListener('keyup', event => {
@@ -581,9 +580,9 @@ function holdStart() {
         // holdReset++;
 
         let dir = -4;
-        if(key == 'd' || key == 'w') { dir = 4; }
-        if(key == 'a' || key == 'd') { rotation.y += dir; }
-        else { rotation.x += dir; }
+        if(key == 'd' || key == 'w') dir = 4;
+        if(key == 'a' || key == 'd') rotation.y += dir;
+        else rotation.x += dir;
 
         updateCubeRot();
     }, 1000 / 30);
@@ -622,36 +621,39 @@ function loopRot(rot) {
 
 
 // Page
-var rmode = 0;
+const render_label = dom('render_label');
+var rmode = 'Cube';
 function renderMode() {
-    if(rmode == 0) {
-        $('body').classList.add('semi_flat');
+    if(rmode == 'Cube') {
+        body.classList.add('semi_flat');
         if(rotation.y < -90 || rotation.y > 90) {
             rotation.y = 0;
             updateCubeRot();
         }
-        rmode = 1;
-    } else if(rmode == 1) {
-        $('body').classList.remove('semi_flat');
-        $('body').classList.add('render_flat');
-        rmode = 2;
-    } else if(rmode == 2) {
-        $('body').classList.remove('render_flat');
-        rmode = 0;
+        rmode = 'Unfold';
+    } else if(rmode == 'Unfold') {
+        body.classList.remove('semi_flat');
+        body.classList.add('render_flat');
+        rmode = 'Flat';
+    } else if(rmode == 'Flat') {
+        body.classList.remove('render_flat');
+        rmode = 'Cube';
     }
+    render_label.innerText = rmode;
 }
 
 
-const elPanel = dom('panel');
+// const elPanel = dom('panel');
+const body = document.querySelector('body');
 const elPanelToggle = dom('panel_toggle');
 var panelVisible = true;
 function togglePanel() {
-    if(panelVisible == true) {
-        elPanel.classList.add('hide');
+    if(panelVisible) {
+        body.classList.add('hide');
         elPanelToggle.innerText = "⮝";
         panelVisible = false;
     } else {
-        elPanel.classList.remove('hide');
+        body.classList.remove('hide');
         elPanelToggle.innerText = "⮟";
         panelVisible = true;
     }
@@ -659,7 +661,7 @@ function togglePanel() {
 
 
 
-
+dom('button_shuffle').addEventListener('click', shuffle);
 
 
 
@@ -669,12 +671,16 @@ var originX;
 var originY;
 var omX;
 var omY;
-document.addEventListener('mousedown', () => {
+document.addEventListener('mousedown', pointerStart);
+document.addEventListener('touchstart', pointerStart);
+function pointerStart(event) {
     originX = parseInt(rotation.x);
     originY = parseInt(rotation.y);
     omX = mouseX;
     omY = mouseY;
-    // document.querySelector('body').classList.add('panning');
+    console.log(originX, originY);
+    console.log(omX, omY);
+    body.classList.add('panning');
 
     clearInterval(mousedownInterval);
     mousedownInterval = setInterval(() => {
@@ -682,12 +688,14 @@ document.addEventListener('mousedown', () => {
         rotation.y = parseInt(((parseInt(originY)) + (mouseX - omX) *  0.5));
         updateCubeRot();
     }, 1000 / 30);
-});
-document.addEventListener('mouseup', () => { clearInterval(mousedownInterval); });
+}
+document.addEventListener('mouseup', pointerEnd);
+document.addEventListener('touchend', pointerEnd);
+function pointerEnd(event) {
+    body.classList.remove('panning');
+    clearInterval(mousedownInterval);
+}
 // document.addEventListener('mouseout', () => { clearInterval(mousedownInterval); });
-
-
-
 
 
 // Mouse position handler
@@ -695,15 +703,22 @@ document.addEventListener('mouseup', () => { clearInterval(mousedownInterval); }
 // https://stackoverflow.com/a/7790764
 (function() {
     document.onmousemove = handleMouseMove;
+
+    document.ontouchstart = handleMouseMove;
+    document.ontouchmove = handleMouseMove;
     function handleMouseMove(event) {
         var eventDoc, doc, body;
-
         event = event || window.event; // IE-ism
 
-        // If pageX/Y aren't available and clientX/Y are,
-        // calculate pageX/Y - logic taken from jQuery.
-        // (This is to support old IE)
-        if (event.pageX == null && event.clientX != null) {
+        // Touch 
+        if(event.type == 'touchstart' || event.type == 'touchmove' || event.type == 'touchend' || event.type == 'touchcancel'){
+            var evt = (typeof event.originalEvent === 'undefined') ? event : event.originalEvent;
+            var touch = evt.touches[0] || evt.changedTouches[0];
+            mouseX = Number(touch.pageX.toFixed(0));
+            mouseY = Number(touch.pageY.toFixed(0));
+        }
+        // Mouse
+        else if(event.pageX == null && event.clientX != null && event.type == 'mousedown' || event.type == 'mouseup' || event.type == 'mousemove' || event.type == 'mouseover'|| event.type=='mouseout' || event.type=='mouseenter' || event.type=='mouseleave') {
             eventDoc = (event.target && event.target.ownerDocument) || document;
             doc = eventDoc.documentElement;
             body = eventDoc.body;
@@ -714,9 +729,9 @@ document.addEventListener('mouseup', () => { clearInterval(mousedownInterval); }
             event.pageY = event.clientY +
             (doc && doc.scrollTop  || body && body.scrollTop  || 0) -
             (doc && doc.clientTop  || body && body.clientTop  || 0 );
+
+            mouseX = event.pageX;
+            mouseY = event.pageY;
         }
-        
-        mouseX = event.pageX;
-        mouseY = event.pageY;
     }
 })();

@@ -1,3 +1,11 @@
+v4
+- Cube will now move upwards to fit on smaller screens
+- Everything except for the squares on the cube itself are now keyboard focusable
+- Added a header, extra info is shown if you hover the circle in the top left
+- Mouse changes to "Grabbing" while the camera is being panned
+- Holding shift when clicking the shuffle button will shuffle faster
+- Partial cube rotation support for touch screens
+
 v3
 - Fixed the control panel scaling down incorrectly
 - You can click a color again to disable paint mode
