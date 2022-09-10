@@ -1,3 +1,7 @@
+v5
+- Holding shift will change the shuffle button text to indicate unique behavior
+- Gave the shuffle and reset buttons title attributes
+
 v4
 - Cube will now move upwards to fit on smaller screens
 - Everything except for the squares on the cube itself are now keyboard focusable

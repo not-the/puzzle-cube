@@ -4,6 +4,7 @@ function dom(id) { return document.getElementById(id); }
 const elCube = dom('cube');
 const elScene = dom('scene');
 const elControls = dom('controls');
+const button_shuffle = dom('button_shuffle');
 
 var mouseX = 0;
 var mouseY = 0;
@@ -459,7 +460,7 @@ var shuffleTimer;
 function shuffle(event, movecount = false) {
     let moves = movecount ? movecount - 1 : Math.floor(Math.random() * 10) + 40;
 
-    dom("button_shuffle").innerText = "Shuffling...";
+    button_shuffle.innerText = "Shuffling...";
     let length = 0;
 
     // Shuffle
@@ -478,7 +479,7 @@ function shuffle(event, movecount = false) {
     clearTimeout(shuffleTimer);
     shuffleTimer = setTimeout(() => {
         shuffling = false;
-        dom("button_shuffle").innerText = "Shuffle";
+        button_shuffle.innerText = "Shuffle";
         clearInterval(shuffleInterval);
     }, moves * length);
 }
@@ -552,6 +553,7 @@ document.addEventListener('keydown', event => {
         holdStart(key);
     }
     else if((key == 'z' || key == 'Z') && event.ctrlKey == true) undo();
+    else if(key == 'Shift' && !shuffling) button_shuffle.innerText = "Fast Shuffle";
 });
 
 document.addEventListener('keyup', event => {
@@ -559,7 +561,7 @@ document.addEventListener('keyup', event => {
     if(key == keyFiring) {
         keyFiring = false;
         holdStop();
-    }
+    } else if(key == 'Shift' && !shuffling) button_shuffle.innerText = "Shuffle";
 });
 
 var rotation = {
@@ -661,7 +663,7 @@ function togglePanel() {
 
 
 
-dom('button_shuffle').addEventListener('click', shuffle);
+button_shuffle.addEventListener('click', shuffle);
 
 
 
@@ -678,8 +680,6 @@ function pointerStart(event) {
     originY = parseInt(rotation.y);
     omX = mouseX;
     omY = mouseY;
-    console.log(originX, originY);
-    console.log(omX, omY);
     body.classList.add('panning');
 
     clearInterval(mousedownInterval);
