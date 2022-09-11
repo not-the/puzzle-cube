@@ -195,40 +195,37 @@ const posclasses = [
     ['bottomleft', 'bottommid', 'bottomright'],
 ];
 
-// Loop sides
+/** Create cube HTML */
 function populateCube(template = cube3x3) {
     cube = cube == false ? JSON.parse(JSON.stringify(template)) : cube;
     var html = '';
-    for(key in cube) {
+    for(key in cube) { // Loop sides
         let side = cube[key];
         html += `<div class="side ${key}" id="${key}">`;
-    
-        // Loop rows
-        for(ri = 0; ri < side.length; ri++) {
-            // Loop squares
+        for(ri = 0; ri < side.length; ri++) { // Loop rows
             let row = side[ri];
             html += `<div class="row">`;
-            for(si = 0; si < side.length; si++) {
+            for(si = 0; si < side.length; si++) { // Loop squares
                 let square = row[si];
                 let posclass = posclasses[ri][si];
-                // html += `<div class="square ${colors[square]}" onclick="console.log('${`${key} (${ri}, ${si})`}')"></div>`;
                 html += `<div id="${key}_${ri}${si}" class="square ${posclass} ${colors[square]}" onclick="paint('${key}', ${ri}, ${si})"></div>`;
             }
             html += `</div>`;
         }
-
         html += `</div>`;
         elCube.innerHTML = html;
     }
-
-    // holdStart();
-
 }
 
 
 
 var mhistory = [];
 var at = -1;
+/** Makes a move
+ * @param {string} sidekey Side
+ * @param {boolean} counter True = do in reverse
+ * @param {boolean} nohistory True = disables recording move in history
+ */
 function move(sidekey, counter = false, nohistory = false) {
     let side = cube[sidekey];
     if(side == undefined) return 'Invalid move';
