@@ -1,31 +1,27 @@
 :root {
     --font: Arial, Helvetica, sans-serif;
     --text: rgb(222, 222, 222);
+    --alt-text: rgb(197, 197, 197);
 }
 html, button {
     font-family: var(--font);
 }
 
 body {
+    min-height: 100vh;
+    overflow: hidden !important;
+
     background-color: rgb(32, 32, 32);
     color: var(--text);
     margin: 0;
-
-    min-height: 100vh;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: 75px;
-
-    perspective: 10em;
-    perspective-origin: 50% 50%;
 
     touch-action: manipulation;
     -ms-touch-action: manipulation;
 }
+body:active { cursor: grabbing; }
 h3 { margin: 0; }
-.panning { cursor: grabbing; }
+.alt_text { color: var(--alt-text); }
 .emphasize { color: white; font-weight: bold; }
 .flex { display: flex; }
 
@@ -52,7 +48,7 @@ h3 { margin: 0; }
 #info:hover {
     color: var(--text);
     transform: none;
-    text-shadow: 2px 2px 16px black;
+    text-shadow: 2px 2px 16px rgba(0, 0, 0, 0.3);
 }
 #info * { margin: 0; }
 .header_hover {
@@ -61,6 +57,18 @@ h3 { margin: 0; }
 
 a { color: rgb(36, 138, 255); }
 a:hover { text-decoration: none; }
+
+/* Container */
+#scene_container {
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    perspective: 10em;
+    perspective-origin: 50% 50%;
+}
 
 /* 3D cube CSS by Amit Sheen */
 .scene {
@@ -146,7 +154,7 @@ a:hover { text-decoration: none; }
 
 
 /* Flat */
-.render_flat {
+.render_flat #scene_container {
     overflow: unset;
     display: unset;
     justify-content: unset;

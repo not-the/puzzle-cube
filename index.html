@@ -18,8 +18,10 @@
     </header>
 
     <!-- Cube -->
-    <div id="scene" class="scene">
-        <div id="cube"></div>
+    <div id="scene_container">
+        <div class="scene">
+            <div id="cube"></div>
+        </div>
     </div>
 
     <!-- Buttons -->
@@ -29,13 +31,24 @@
                 ⮟
             </div>
             <div style="margin-right: 8px;">
+                <!-- Rotation buttons -->
                 <div id="controls"></div>
-                    <div class="flex"><button onclick="reset()" style="width: 100%; text-align: center;" title="Reset cube">Reset</button><button id="button_shuffle" style="width: 100%; text-align: center;" title="Click to shuffle. Shift+click to shuffle faster.">Shuffle</button></div>
-                <button onclick="renderMode()" style="width: 100%; text-align: center;">Render mode: <span id="render_label" class="emphasize">Cube</span></button>
+
+                <!-- Buttons -->
+                <div class="flex">
+                    <button onclick="reset()" style="width: 100%;" title="Reset cube">Reset</button>
+                    <button id="button_shuffle" style="width: 100%;" title="Click to shuffle. Shift+click to shuffle faster.">Shuffle</button>
+                </div>
+                <div class="flex">
+                    <button onclick="renderMode()" style="width: 100%;">
+                        Render mode: <span id="render_label" class="emphasize">Cube</span>
+                    </button>
+                </div>
             </div>
             <!-- Colors -->
             <div>
-                <h3>Paints</h3>
+                <h3>Manipulation</h3>
+                <button class="swatch sel" onclick="setPaintColor('none')" style="width: 100%;">Rotate</button>
                 <div class="flex">
                     <div class="square swatch white" onclick="setPaintColor('0')" role="button" tabindex="0"></div>
                     <div class="square swatch yellow" onclick="setPaintColor('1')" role="button" tabindex="0"></div>
@@ -47,12 +60,12 @@
                     <div class="square swatch blue" onclick="setPaintColor('5')" role="button" tabindex="0"></div>
                 </div>
                 <div class="flex">
-                    <button onclick="undo()" style="width: 100%; text-align: center;">Undo</button>
+                    <button onclick="undo()" style="width: 100%; text-align: center;">Undo <span class="alt_text" style="font-size: 8pt;">(CTRL+Z)</span></button>
                 </div>
             </div>
         </div>
 
-        <p style="margin: 0; padding-top: 4px; text-align: center; color: rgb(197, 197, 197);">Click and drag or WASD to rotate camera</p>
+        <p style="margin: 0; padding-top: 4px; text-align: center; color: var(--alt-text);">Click and drag or WASD to rotate camera</p>
     </div>
 
 

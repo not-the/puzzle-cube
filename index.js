@@ -2,7 +2,7 @@
 function $(sel) { return document.querySelector(sel); }
 function dom(id) { return document.getElementById(id); }
 const elCube = dom('cube');
-const elScene = dom('scene');
+const elSceneContainer = dom('scene_container');
 const elControls = dom('controls');
 const button_shuffle = dom('button_shuffle');
 
@@ -195,9 +195,21 @@ const posclasses = [
     ['bottomleft', 'bottommid', 'bottomright'],
 ];
 
+//#region 
+// const associated = {
+// 'u': [ cube.f[0][0], cube.f[0][1], cube.f[0][2], cube.r[0][0], cube.r[0][1], cube.r[0][2], cube.b[0][0], cube.b[0][1], cube.b[0][2], cube.l[0][0], cube.l[0][1], cube.l[0][2] ],
+// 'd': [ cube.f[2][0], cube.f[2][1], cube.f[2][2], cube.r[2][0], cube.r[2][1], cube.r[2][2], cube.b[2][0], cube.b[2][1], cube.b[2][2], cube.l[2][0], cube.l[2][1], cube.l[2][2] ],
+// 'f': [ cube.u[2][0], cube.u[2][1], cube.u[2][2], cube.r[0][0], cube.r[1][0], cube.r[2][0], cube.d[0][2], cube.d[0][1], cube.d[0][0], cube.l[2][2], cube.l[1][2], cube.l[0][2] ],
+// 'b': [ cube.u[0][2], cube.u[0][1], cube.u[0][0], cube.l[0][0], cube.l[1][0], cube.l[2][0], cube.d[2][0], cube.d[2][1], cube.d[2][2], cube.r[2][2], cube.r[1][2], cube.r[0][2] ],
+// 'r': [ cube.u[2][2], cube.u[1][2], cube.u[0][2], cube.b[0][0], cube.b[1][0], cube.b[2][0], cube.d[2][2], cube.d[1][2], cube.d[0][2], cube.f[2][2], cube.f[1][2], cube.f[0][2] ],
+// 'l': [ cube.u[0][0], cube.u[1][0], cube.u[2][0], cube.f[0][0], cube.f[1][0], cube.f[2][0], cube.d[0][0], cube.d[1][0], cube.d[2][0], cube.b[2][2], cube.b[1][2], cube.b[0][2] ],
+// }
+//#endregion
+
 /** Create cube HTML */
 function populateCube(template = cube3x3) {
     cube = cube == false ? JSON.parse(JSON.stringify(template)) : cube;
+
     var html = '';
     for(key in cube) { // Loop sides
         let side = cube[key];
@@ -482,17 +494,21 @@ function shuffle(event, movecount = false) {
 }
 
 function setPaintColor(c) {
-    document.querySelectorAll('.swatch').forEach(e => {
-        e.classList.remove('sel');
-    });
+    document.querySelectorAll('.swatch').forEach(e => { e.classList.remove('sel'); });
     let target = this.event.srcElement;
-    if(paintColor == c) return target.classList.remove('sel');
+    // if(paintColor == c) return target.classList.remove('sel');
     target.classList.add('sel');
     paintColor = c;
 }
 
 // var helper = '[ ';
 // var hi = 0;
+/** Click on cube square
+ * @param {*} key Side ID
+ * @param {*} ri y
+ * @param {*} si x
+ * @returns 
+ */
 function paint(key, ri, si) {
     console.log(`${`${key} (${ri}, ${si})`}`);
     // helper += `cube.${key}[${ri}][${si}]`;
@@ -504,7 +520,10 @@ function paint(key, ri, si) {
         // helper += ', ';
     // }
     // console.log(helper);
-    if(paintColor == -1) return;
+
+    // Rotate instead
+    if(paintColor == -1 || paintColor == 'none') return move(key, this.event.shiftKey);
+
     // console.log(key);
     // console.log(cube[key][ri][si]);
     cube[key][ri][si] = paintColor;
@@ -606,8 +625,8 @@ function updateCubeRot() {
 function loopRot(rot) {
     let a = rot;
     while(a < 1 || a > 360) {
-        if(a < 1) { a += 360; }
-        else if(a > 360) { a -= 360; }
+        if(a < 1) a += 360;
+        else if(a > 360) a -= 360;
     }
     return a;
 }
@@ -670,14 +689,13 @@ var originX;
 var originY;
 var omX;
 var omY;
-document.addEventListener('mousedown', pointerStart);
-document.addEventListener('touchstart', pointerStart);
+elSceneContainer.addEventListener('mousedown', pointerStart);
+elSceneContainer.addEventListener('touchstart', pointerStart);
 function pointerStart(event) {
     originX = parseInt(rotation.x);
     originY = parseInt(rotation.y);
     omX = mouseX;
     omY = mouseY;
-    body.classList.add('panning');
 
     clearInterval(mousedownInterval);
     mousedownInterval = setInterval(() => {
@@ -686,10 +704,9 @@ function pointerStart(event) {
         updateCubeRot();
     }, 1000 / 30);
 }
-document.addEventListener('mouseup', pointerEnd);
-document.addEventListener('touchend', pointerEnd);
+elSceneContainer.addEventListener('mouseup', pointerEnd);
+elSceneContainer.addEventListener('touchend', pointerEnd);
 function pointerEnd(event) {
-    body.classList.remove('panning');
     clearInterval(mousedownInterval);
 }
 // document.addEventListener('mouseout', () => { clearInterval(mousedownInterval); });

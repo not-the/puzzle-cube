@@ -1,3 +1,7 @@
+v6
+- Interacting with the control panel no longer rotates the cube
+- Clicking on a side of the cube now rotates it if a paint isn't selected. Holding shift rotates counter-clockwise.
+
 v5
 - Holding shift will change the shuffle button text to indicate unique behavior
 - Gave the shuffle and reset buttons title attributes
