@@ -1,3 +1,9 @@
+v7
+- Added Amit Sheen credit
+- Added source code link
+- Starting rotation changed to show 3 sides on page load
+- Fixed mouseup getting ignored if it occured over an element other than the scene
+
 v6
 - Interacting with the control panel no longer rotates the cube
 - Clicking on a side of the cube now rotates it if a paint isn't selected. Holding shift rotates counter-clockwise.

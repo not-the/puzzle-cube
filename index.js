@@ -581,8 +581,8 @@ document.addEventListener('keyup', event => {
 });
 
 var rotation = {
-    y: 0,
-    x: 0,
+    y: -45,
+    x: -35,
 }
 
 // var holdDelay;
@@ -669,12 +669,11 @@ function togglePanel() {
     if(panelVisible) {
         body.classList.add('hide');
         elPanelToggle.innerText = "⮝";
-        panelVisible = false;
     } else {
         body.classList.remove('hide');
         elPanelToggle.innerText = "⮟";
-        panelVisible = true;
     }
+    panelVisible = !panelVisible;
 }
 
 
@@ -704,7 +703,7 @@ function pointerStart(event) {
         updateCubeRot();
     }, 1000 / 30);
 }
-elSceneContainer.addEventListener('mouseup', pointerEnd);
+document.addEventListener('mouseup', pointerEnd);
 elSceneContainer.addEventListener('touchend', pointerEnd);
 function pointerEnd(event) {
     clearInterval(mousedownInterval);
