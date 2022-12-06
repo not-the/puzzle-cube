@@ -9,111 +9,6 @@ const button_shuffle = dom('button_shuffle');
 var mouseX = 0;
 var mouseY = 0;
 
-var saved = {
-    "u": [
-        [
-            "5",
-            "2",
-            "2"
-        ],
-        [
-            "1",
-            0,
-            "2"
-        ],
-        [
-            "5",
-            0,
-            "4"
-        ]
-    ],
-    "d": [
-        [
-            "2",
-            1,
-            1
-        ],
-        [
-            "3",
-            1,
-            "3"
-        ],
-        [
-            "5",
-            "3",
-            1
-        ]
-    ],
-    "f": [
-        [
-            "2",
-            "5",
-            "0"
-        ],
-        [
-            "2",
-            4,
-            "1"
-        ],
-        [
-            "0",
-            "3",
-            "3"
-        ]
-    ],
-    "b": [
-        [
-            "1",
-            "1",
-            "2"
-        ],
-        [
-            "0",
-            5,
-            "0"
-        ],
-        [
-            "3",
-            5,
-            "0"
-        ]
-    ],
-    "l": [
-        [
-            "1",
-            "4",
-            "0"
-        ],
-        [
-            "2",
-            3,
-            "5"
-        ],
-        [
-            3,
-            "4",
-            "4"
-        ]
-    ],
-    "r": [
-        [
-            "3",
-            "4",
-            "4"
-        ],
-        [
-            "5",
-            "2",
-            "4"
-        ],
-        [
-            "4",
-            "0",
-            "5"
-        ]
-    ]
-}
-
 // Cube data
 const cube3x3 = {
     u: [ // up, white
@@ -185,7 +80,6 @@ const cube4x4 = {
         [5, 5, 5, 5],
     ],
 };
-var cube3x3map
 var cube = false;
 const colors = ["white", "yellow", "red", "orange", "green", "blue"];
 var paintColor = -1;
@@ -414,33 +308,6 @@ function move(sidekey, counter = false, nohistory = false) {
                 break;
         }
     }
-    
-    // Solved check
-    // let sidesSolved = 0;
-    // let solved = false;
-    // for(key in cube) {
-    //     // Loop rows
-    //     let side = cube[key];
-    //     for(ri = 0; ri < side.length; ri++) {
-    //         // Loop squares
-    //         let row = side[ri];
-
-    //         for(si = 0; si < side.length; si++) {
-    //             let square = row[si];
-
-    //         }
-    //         console.log(samecount);
-    //     }
-    // }
-    // if(sidesSolved = 6) {
-    //     console.log('CUBE IS SOLVED');
-    // }
-
-    // Erase alternate timeline
-    // if(at + 1 < mhistory.length && at != 1) {
-    //     mhistory.splice(at, mhistory.length - 1);
-    // }
-
 
     // Normal move add to history
     if(nohistory == false) {
@@ -523,9 +390,6 @@ function paint(key, ri, si) {
 
     // Rotate instead
     if(paintColor == -1 || paintColor == 'none') return move(key, this.event.shiftKey);
-
-    // console.log(key);
-    // console.log(cube[key][ri][si]);
     cube[key][ri][si] = paintColor;
     populateCube();
 }
@@ -620,23 +484,14 @@ function updateCubeRot() {
     });
 }
 
-
-
-function loopRot(rot) {
-    let a = rot;
-    while(a < 1 || a > 360) {
-        if(a < 1) a += 360;
-        else if(a > 360) a -= 360;
-    }
-    return a;
-}
-
-
-
-
-
-
-
+// function loopRot(rot) {
+//     let a = rot;
+//     while(a < 1 || a > 360) {
+//         if(a < 1) a += 360;
+//         else if(a > 360) a -= 360;
+//     }
+//     return a;
+// }
 
 // Page
 const render_label = dom('render_label');

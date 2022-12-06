@@ -9,7 +9,7 @@
     <link rel="icon" type="image/x-icon" href="./icon.png">
 </head>
 <body>
-    <header id="info" class="flex">
+    <header id="info" class="flex" tabindex="0">
         <div>
             <h1>Rubik's Cube Simulator</h1>
             <p style="margin-bottom: 3px;">By <a href="https://github.com/not-the" target="_blank" rel="noopener noreferrer">not-the</a> | <a href="https://github.com/not-the/puzzle-cube">Source Code</a> | <a href="https://www.notkal.com/projects/rubiks-cube/">About</a></p>
@@ -28,9 +28,9 @@
     <!-- Buttons -->
     <div class="panel" id="panel">
         <div class="flex">
-            <div id="panel_toggle" onclick="togglePanel()" role="button" tabindex="0">
+            <button id="panel_toggle" onclick="togglePanel()">
                 ⮟
-            </div>
+            </button>
             <div style="margin-right: 8px;">
                 <!-- Rotation buttons -->
                 <div id="controls"></div>

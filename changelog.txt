@@ -1,3 +1,8 @@
+v8
+- Focusing #info via keyboard makes it visible
+- Made the panel toggle a button + enter key works to activate it
+- Scrollbars appear if flat rendering exceeds the size of the page
+
 v7
 - Added Amit Sheen credit
 - Added source code link
