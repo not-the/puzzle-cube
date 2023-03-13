@@ -114,6 +114,27 @@ a:hover { text-decoration: none; }
     transform: translateY(50%) rotateX(-90deg);
 }
 
+/* Rotation */
+body[data-tool="none"] .side::after {
+    content: url(./assets/rotate.svg);
+    transform: translateZ(0.1em);
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    filter: drop-shadow(0 0 16px black);
+    padding: 0.15em;
+
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+body[data-tool="none"] .side:hover::after {
+    transform: translateZ(0.25em);
+    opacity: 0.5;
+}
+body[data-tool="none"].shift_key .side::after {
+    transform: translateZ(0.1em) scale(-1, 1);
+}
+
 
 /* Render semi-flat */
 .semi_flat .side { backface-visibility: unset;}
@@ -358,6 +379,14 @@ button:active {
     outline: 2px solid white;
     z-index: 1;
 }
+
+
+/* #debug {
+    font-size: 14pt;
+    position: absolute;
+    top: 6px;
+    right: 12px;
+} */
 
 
 /* Media queries */

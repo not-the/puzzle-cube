@@ -361,6 +361,7 @@ function shuffle(event, movecount = false) {
 }
 
 function setPaintColor(c) {
+    body.dataset.tool = c;
     document.querySelectorAll('.swatch').forEach(e => { e.classList.remove('sel'); });
     let target = this.event.srcElement;
     // if(paintColor == c) return target.classList.remove('sel');
@@ -433,7 +434,10 @@ document.addEventListener('keydown', event => {
         holdStart(key);
     }
     else if((key == 'z' || key == 'Z') && event.ctrlKey == true) undo();
-    else if(key == 'Shift' && !shuffling) button_shuffle.innerText = "Fast Shuffle";
+    else if(key == 'Shift' && !shuffling) {
+        button_shuffle.innerText = "Fast Shuffle";
+        body.classList.add('shift_key');
+    };
 });
 
 document.addEventListener('keyup', event => {
@@ -441,7 +445,10 @@ document.addEventListener('keyup', event => {
     if(key == keyFiring) {
         keyFiring = false;
         holdStop();
-    } else if(key == 'Shift' && !shuffling) button_shuffle.innerText = "Shuffle";
+    } else if(key == 'Shift' && !shuffling) {
+        button_shuffle.innerText = "Shuffle";
+        body.classList.remove('shift_key');
+    };
 });
 
 var rotation = {
@@ -537,27 +544,46 @@ button_shuffle.addEventListener('click', shuffle);
 
 
 
-
+var pointerType = undefined;
 var mousedownInterval;
 var originX;
 var originY;
 var omX;
 var omY;
+
+// Mouse down
 elSceneContainer.addEventListener('mousedown', pointerStart);
 elSceneContainer.addEventListener('touchstart', pointerStart);
 function pointerStart(event) {
-    originX = parseInt(rotation.x);
-    originY = parseInt(rotation.y);
+    // Mouse origin
     omX = mouseX;
     omY = mouseY;
 
+    // Rotation origin
+    originX = parseInt(rotation.x);
+    originY = parseInt(rotation.y);
+
     clearInterval(mousedownInterval);
-    mousedownInterval = setInterval(() => {
-        rotation.x = parseInt(((parseInt(originX)) + (mouseY - omY) * -0.3));
-        rotation.y = parseInt(((parseInt(originY)) + (mouseX - omX) *  0.5));
-        updateCubeRot();
-    }, 1000 / 30);
+    // if(pointerType == 'touch') {
+    //     mousedownInterval = setInterval(() => {
+
+    //         rotation.x = originX + (mouseY - omY) * -0.3;
+    //         rotation.y = originY + (mouseX - omX) *  0.5;
+    //         updateCubeRot();
+    //     }, 1000 / 30);
+    // } else {
+        mousedownInterval = setInterval(() => {
+            // let multX = 0.5;
+            // let absolute = Math.abs(rotation.x % 360);
+            // if(absolute > 90 && absolute < 270) {console.log('yes'); multX = -0.5};
+            rotation.x = originX + (mouseY - omY) * -0.3;
+            rotation.y = originY + (mouseX - omX) *  0.5;
+            updateCubeRot();
+        }, 1000 / 30);
+    // }
 }
+
+// Mouse up
 document.addEventListener('mouseup', pointerEnd);
 elSceneContainer.addEventListener('touchend', pointerEnd);
 function pointerEnd(event) {
@@ -581,9 +607,10 @@ function pointerEnd(event) {
         // Touch 
         if(event.type == 'touchstart' || event.type == 'touchmove' || event.type == 'touchend' || event.type == 'touchcancel'){
             var evt = (typeof event.originalEvent === 'undefined') ? event : event.originalEvent;
-            var touch = evt.touches[0] || evt.changedTouches[0];
+            var touch = evt.touches[0] || evt.targetTouches[0];
             mouseX = Number(touch.pageX.toFixed(0));
             mouseY = Number(touch.pageY.toFixed(0));
+            pointerType = 'touch';
         }
         // Mouse
         else if(event.pageX == null && event.clientX != null && event.type == 'mousedown' || event.type == 'mouseup' || event.type == 'mousemove' || event.type == 'mouseover'|| event.type=='mouseout' || event.type=='mouseenter' || event.type=='mouseleave') {
@@ -600,6 +627,11 @@ function pointerEnd(event) {
 
             mouseX = event.pageX;
             mouseY = event.pageY;
+
+            pointerType = 'mouse';
         }
+
+        // Debug
+        // document.getElementById('debug').innerText = `X ${mouseX}\nY ${mouseY}\noriginX ${originX}\noriginY ${originY}\nomX ${omX}\nomY ${omY}\n`;
     }
 })();

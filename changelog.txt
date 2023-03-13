@@ -1,3 +1,6 @@
+v9
+- Rotation direction indicator on hover
+
 v8
 - Focusing #info via keyboard makes it visible
 - Made the panel toggle a button + enter key works to activate it
