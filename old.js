@@ -119,7 +119,7 @@ function populateCube(template = cube3x3) {
             html += `</div>`;
         }
         html += `</div>`;
-        elCube.innerHTML = html;
+        // elCube.innerHTML = html;
     }
 }
 

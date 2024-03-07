@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,15 +9,20 @@
     <link rel="stylesheet" href="index.css">
     <link rel="icon" type="image/x-icon" href="./icon.png">
 </head>
+
 <body data-tool="none">
     <header id="info" class="flex" tabindex="0">
         <div>
             <h1>Rubik's Cube Simulator</h1>
-            <p style="margin-bottom: 3px;">By <a href="https://github.com/not-the" target="_blank" rel="noopener noreferrer">not-the</a> | <a href="https://github.com/not-the/puzzle-cube">Source Code</a> | <a href="https://www.notkal.com/projects/rubiks-cube/">About</a></p>
-            <p>Cube CSS based on <a href="https://www.amitsh.com/" target="_blank" rel="noopener noreferrer">Amit Sheen</a>'s work</p>
-            <br/>
-            <b>Image attribution:</b><br/>
-            <a href="https://commons.wikimedia.org/wiki/File:Antu-object-rotate-right-24.svg">rotate.svg</a>: Fabián Alexis;, LGPL <http://www.gnu.org/licenses/lgpl.html>, via Wikimedia Commons
+            <p style="margin-bottom: 3px;">By <a href="https://github.com/not-the" target="_blank"
+                    rel="noopener noreferrer">not-the</a> | <a href="https://github.com/not-the/puzzle-cube">Source
+                    Code</a> | <a href="https://www.notkal.com/projects/rubiks-cube/">About</a></p>
+            <p>Cube CSS based on <a href="https://www.amitsh.com/" target="_blank" rel="noopener noreferrer">Amit
+                    Sheen</a>'s work</p>
+            <br />
+            <b>Image attribution:</b><br />
+            <a href="https://commons.wikimedia.org/wiki/File:Antu-object-rotate-right-24.svg">rotate.svg</a>: Fabián
+            Alexis;, <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>, via Wikimedia Commons
         </div>
         <div class="header_hover">•</div>
     </header>
@@ -28,7 +34,139 @@
     <!-- Cube -->
     <div id="scene_container">
         <div class="scene">
-            <div id="cube" style="transform: rotateX(-35deg) rotateY(-45deg);"></div>
+            <div id="cube" style="transform: rotateX(-35deg) rotateY(-45deg);">
+                <!-- Test corner -->
+                <!-- <div class="corner" data-test>
+                    <div class="square white"></div>
+                    <div class="square blue"></div>
+                    <div class="square red"></div>
+                </div> -->
+
+
+                <!-- Centers -->
+                <!-- <div class="center" style="transform: rotateX(90deg) rotateY(0deg) translateZ(1em)">
+                    <div class="square white"></div>
+                </div>
+                <div class="center" style="transform: rotateX(0deg) rotateY(0deg) translateZ(1em)">
+                    <div class="square red"></div>
+                </div>
+                <div class="center" style="transform: rotateX(0deg) rotateY(90deg) translateZ(1em)">
+                    <div class="square green"></div>
+                </div>
+                <div class="center" style="transform: rotateX(0deg) rotateY(180deg) translateZ(1em)">
+                    <div class="square orange"></div>
+                </div>
+                <div class="center" style="transform: rotateX(0deg) rotateY(270deg) translateZ(1em)">
+                    <div class="square blue"></div>
+                </div>
+                <div class="center" style="transform: rotateX(-90deg) rotateY(0deg) translateZ(1em)">
+                    <div class="square yellow"></div>
+                </div> -->
+
+                <!-- Corners -->
+                <!-- <div class="corner" data-test>
+                    <div class="square white"></div>
+                    <div class="square blue"></div>
+                    <div class="square red"></div>
+                </div>
+                <div class="corner" style="transform: rotateX(0deg) rotateY(90deg) translateZ(1em)">
+                    <div class="square white"></div>
+                    <div class="square red"></div>
+                    <div class="square green"></div>
+                </div>
+                <div class="corner" style="transform: rotateX(0deg) rotateY(180deg) translateZ(1em)">
+                    <div class="square white"></div>
+                    <div class="square green"></div>
+                    <div class="square orange"></div>
+                </div>
+                <div class="corner" style="transform: rotateX(0deg) rotateY(270deg) translateZ(1em)">
+                    <div class="square white"></div>
+                    <div class="square orange"></div>
+                    <div class="square blue"></div>
+                </div> -->
+
+                <!-- Bottom Corners -->
+                <!-- <div class="corner" style="transform: rotateZ(180deg) translateZ(1em)">
+                    <div class="square yellow"></div>
+                    <div class="square green"></div>
+                    <div class="square red"></div>
+                </div>
+                <div class="corner" style="transform: rotateY(90deg) rotateZ(180deg) translateZ(1em)">
+                    <div class="square yellow"></div>
+                    <div class="square orange"></div>
+                    <div class="square green"></div>
+                </div>
+                <div class="corner" style="transform: rotateY(180deg) rotateZ(180deg) translateZ(1em)">
+                    <div class="square yellow"></div>
+                    <div class="square blue"></div>
+                    <div class="square orange"></div>
+                </div>
+                <div class="corner" style="transform: rotateY(270deg) rotateZ(180deg) translateZ(1em)">
+                    <div class="square yellow"></div>
+                    <div class="square red"></div>
+                    <div class="square blue"></div>
+                </div> -->
+
+                <!-- Top edges -->
+                <!-- <div class="edge">
+                    <div class="square white"></div>
+                    <div class="square red"></div>
+                </div>
+                <div class="edge" style="transform: rotateY(90deg) rotateZ(0deg) translateZ(1em)">
+                    <div class="square white"></div>
+                    <div class="square green"></div>
+                </div>
+                <div class="edge" style="transform: rotateY(180deg) rotateZ(0deg) translateZ(1em)">
+                    <div class="square white"></div>
+                    <div class="square orange"></div>
+                </div>
+                <div class="edge" style="transform: rotateY(270deg) rotateZ(0deg) translateZ(1em)">
+                    <div class="square white"></div>
+                    <div class="square blue"></div>
+                </div> -->
+
+                <!-- Middle edges -->
+                <!-- <div class="edge" style="transform: rotateY(90deg) rotateZ(-90deg) translateZ(1em)">
+                    <div class="square red"></div>
+                    <div class="square green"></div>
+                </div>
+                <div class="edge" style="transform: rotateY(180deg) rotateZ(-90deg) translateZ(1em)">
+                    <div class="square green"></div>
+                    <div class="square orange"></div>
+                </div>
+                <div class="edge" style="transform: rotateY(270deg) rotateZ(-90deg) translateZ(1em)">
+                    <div class="square orange"></div>
+                    <div class="square blue"></div>
+                </div>
+                <div class="edge" style="transform: rotateY(0) rotateZ(-90deg) translateZ(1em)">
+                    <div class="square blue"></div>
+                    <div class="square red"></div>
+                </div> -->
+
+                <!-- Bottom edges -->
+                <!-- <div class="edge" style="transform: rotateY(180deg) rotateX(180deg) translateZ(1em)">
+                    <div class="square yellow"></div>
+                    <div class="square red"></div>
+                </div>
+                <div class="edge" style="transform: rotateY(270deg) rotateX(180deg) translateZ(1em)">
+                    <div class="square yellow"></div>
+                    <div class="square green"></div>
+                </div>
+                <div class="edge" style="transform: rotateY(0deg) rotateX(180deg) translateZ(1em)">
+                    <div class="square yellow"></div>
+                    <div class="square orange"></div>
+                </div>
+                <div class="edge" style="transform: rotateY(90deg) rotateX(180deg) translateZ(1em)">
+                    <div class="square yellow"></div>
+                    <div class="square blue"></div>
+                </div> -->
+
+                <!-- <div class="row">
+                    <div id="u_00" class="square topleft white" onclick="paint('u', 0, 0)"></div>
+                    <div id="u_01" class="square topmid white" onclick="paint('u', 0, 1)"></div>
+                    <div id="u_02" class="square topright white" onclick="paint('u', 0, 2)"></div>
+                </div> -->
+            </div>
         </div>
     </div>
 
@@ -40,12 +178,26 @@
             </button>
             <div style="margin-right: 8px;">
                 <!-- Rotation buttons -->
-                <div id="controls"></div>
+                <div id="controls">
+                    <button class="move_button" onclick="move('u')">u</button>
+                    <button class="move_button" onclick="move('d')">d</button>
+                    <button class="move_button" onclick="move('f')">f</button>
+                    <button class="move_button" onclick="move('b')">b</button>
+                    <button class="move_button" onclick="move('l')">l</button>
+                    <button class="move_button" onclick="move('r')">r</button><br>
+                    <button class="move_button" onclick="move('u', true)">u'</button>
+                    <button class="move_button" onclick="move('d', true)">d'</button>
+                    <button class="move_button" onclick="move('f', true)">f'</button>
+                    <button class="move_button" onclick="move('b', true)">b'</button>
+                    <button class="move_button" onclick="move('l', true)">l'</button>
+                    <button class="move_button" onclick="move('r', true)">r'</button>
+                </div>
 
                 <!-- Buttons -->
                 <div class="flex">
                     <button onclick="reset()" style="width: 100%;" title="Reset cube">Reset</button>
-                    <button id="button_shuffle" style="width: 100%;" title="Click to shuffle. Shift+click to shuffle faster.">Shuffle</button>
+                    <button id="button_shuffle" style="width: 100%;"
+                        title="Click to shuffle. Shift+click to shuffle faster.">Shuffle</button>
                 </div>
                 <div class="flex">
                     <button onclick="renderMode()" style="width: 100%;">
@@ -68,16 +220,19 @@
                     <div class="square swatch blue" onclick="setPaintColor('5')" role="button" tabindex="0"></div>
                 </div>
                 <div class="flex">
-                    <button onclick="undo()" style="width: 100%; text-align: center;">Undo <span class="alt_text" style="font-size: 8pt;">(CTRL+Z)</span></button>
+                    <button onclick="undo()" style="width: 100%; text-align: center;">Undo <span class="alt_text"
+                            style="font-size: 8pt;">(CTRL+Z)</span></button>
                 </div>
             </div>
         </div>
 
-        <p style="margin: 0; padding-top: 4px; text-align: center; color: var(--alt-text);">Click and drag or WASD to rotate camera</p>
+        <p style="margin: 0; padding-top: 4px; text-align: center; color: var(--alt-text);">Click and drag or WASD to
+            rotate camera</p>
     </div>
 
 
     <!-- JS -->
-    <script src="index.js"></script>
+    <script src="./script.js"></script>
 </body>
+
 </html>

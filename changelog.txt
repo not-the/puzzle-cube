@@ -1,26 +1,30 @@
-v9
+v2.0
+- CSS overhaul
+- Fixed WASD controls
+
+v1.9
 - Rotation direction indicator on hover
 
-v8
+v1.8
 - Focusing #info via keyboard makes it visible
 - Made the panel toggle a button + enter key works to activate it
 - Scrollbars appear if flat rendering exceeds the size of the page
 
-v7
+v1.7
 - Added Amit Sheen credit
 - Added source code link
 - Starting rotation changed to show 3 sides on page load
 - Fixed mouseup getting ignored if it occured over an element other than the scene
 
-v6
+v1.6
 - Interacting with the control panel no longer rotates the cube
 - Clicking on a side of the cube now rotates it if a paint isn't selected. Holding shift rotates counter-clockwise.
 
-v5
+v1.5
 - Holding shift will change the shuffle button text to indicate unique behavior
 - Gave the shuffle and reset buttons title attributes
 
-v4
+v1.4
 - Cube will now move upwards to fit on smaller screens
 - Everything except for the squares on the cube itself are now keyboard focusable
 - Added a header, extra info is shown if you hover the circle in the top left
@@ -28,15 +32,15 @@ v4
 - Holding shift when clicking the shuffle button will shuffle faster
 - Partial cube rotation support for touch screens
 
-v3
+v1.3
 - Fixed the control panel scaling down incorrectly
 - You can click a color again to disable paint mode
 - Shuffle button text changes while shuffling
 - Pressing the shuffle button while shuffling will stop it
 
-v2
+v1.2
 - Mouse panning
 - Backfaces are now visible in semiflat mode
 - Rotation buttons are now capitalized
 
-v1
+v1.1
